@@ -3,6 +3,14 @@ class SessionsController < ApplicationController
   end
 
   def create
+    entered_email = params["email"]
+    entered_password = params["password"]
+    @user = User.find_by({email: entered_email})
+    if @user
+      if BCrypt::Password.new(@user.password) == entered_password
+    else
+      redirect_to "/sessions/new"
+    end
   end
 
   def destroy
