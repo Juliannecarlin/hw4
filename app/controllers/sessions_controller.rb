@@ -8,12 +8,23 @@ class SessionsController < ApplicationController
     @user = User.find_by({email: entered_email})
     if @user
       if BCrypt::Password.new(@user.password) == entered_password
+        session["user_id"] = @user.id
+        flash[:notice] = "Welcome!"
+        redirect_to "/places"
+      else
+        flash[:notice] = "Password is incorrect"
+        redirect_to "/sessions/new"
+      end
     else
+      flash[:notice] = "No user with that email address"
       redirect_to "/sessions/new"
     end
   end
 
   def destroy
+    session["user_id"] = nil
+    flash[:notice] = "You have been logged out"
+    redirect_to "/sessions/new"
   end
 end
   
