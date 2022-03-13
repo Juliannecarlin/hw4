@@ -2,6 +2,10 @@
 
 <div class="row">
   <% if @current_user %>
+    <p>
+      <a class="btn btn-primary" href="/posts/new?place_id=<%= @place.id %>" role="button">New Post</a>
+    </p>    
+    
     <h2>My Posts</h2>
     <% for post in @place.posts.where({ user_id: @current_user.id}) %>
       <div class="col-4">
@@ -10,10 +14,6 @@
         <p><%= post.description %></p>
       </div>
     <% end %>
-
-    <p>
-      <a href="/posts/new?place_id=<%= @place.id %>">New Post</a>
-    </p>
 
   <% end %>
 </div>
