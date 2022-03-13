@@ -7,14 +7,20 @@
     </p>    
     
     <h2>My Posts</h2>
+    <p>
     <% for post in @place.posts.where({ user_id: @current_user.id}) %>
       <div class="col-4">
         <h3><%= post.title %></h3>
         <h4><%= post.posted_on %></h4>
+        <p>
+        <% if post.uploaded_image.attached? %>
+          <img src="<%= url_for(post.uploaded_image) %>" class="img-fluid">
+        <% end %>
+        </p>
         <p><%= post.description %></p>
       </div>
     <% end %>
-
+  </p>
   <% end %>
 </div>
 
